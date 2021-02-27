@@ -13,7 +13,7 @@ const app = express();
 
 const url = 'https://www.nasdaq.com/api/v1/historical/AAPL/stocks/2020-01-20/2021-01-20'
 let headers = new Headers();
-//https://developer.mozilla.org/en-US/docs/Web/API/Headers/set - if header already exists
+//https://developer.mozilla.org/en-US/docs/Web/API/Headers/set - if header already exists - tarvitsee nämä asetukset hedereihin, että voi hakea tiedot
 //https://developer.mozilla.org/en-US/docs/Web/API/Headers/append 
 headers.append('Accept-Encoding','deflate');
 headers.append('Connection','keep-alive');
