@@ -4,9 +4,9 @@ const { Headers, Request } = require('node-fetch');
 
 
 //express - same as http
-const express = require('express')
+const express = require('express');
 //app <- express olio
-const app = express()
+const app = express();
 
 
 
@@ -20,7 +20,7 @@ headers.append('Connection','keep-alive');
 headers.append('User-Agent','Script');
 
 
-//function call to function with fetch 
+//https://javascript.info/async-await
 async function fetchData (req) { 
 
 const response = await fetch(req);
@@ -28,18 +28,22 @@ const data = await response.text();
 
 //new line split - saadaan rivit, poistetaan slicella date, close/last, volume, open, high, low
 //datassa on viimeinen rivi, mikä on linebreak \n - saattaa tulla esiin undefined
-let table = data.split('\n').slice(1)
+let table = data.split('\n').slice(1);
 
-return table
-/*
-table.forEach(row => {
-    const columns = row.split(',');  
+
+let returnArray = []
+
+//Paloitellaan tietoja vielä lisää. Nyt päästään tietoon käsiksi 
+table.forEach(element => {
+const row = element.split(',');
+returnArray.push(row)
 })
-*/
+
+return returnArray
 }
 
 
-app.get('/api/table', (request, response) => {
+app.get('/api/rows', (request, response) => {
 
     let req = new Request(url, {
         method: 'GET',
@@ -47,21 +51,19 @@ app.get('/api/table', (request, response) => {
         mode: 'cors'
     });
 
-
 //https://javascript.info/async-await
 async function query() {
     const test = await fetchData(req)
     return test
 }
-//awaitData()
+
 
 query()
     .then(function (data) {
         let table = data;  
-        console.log(table)
         response.send(table)
     });
-  })
+});
 
   
 
